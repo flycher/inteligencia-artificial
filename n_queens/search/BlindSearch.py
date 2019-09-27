@@ -23,27 +23,29 @@ class BlindSearch:
         """
         start = time()
         state = State(n_queens=self.n_queens)
-        self.structure.push(state)
+        self.structure.put(state)
         iterations = 0
         while self.structure.peek() is not None:
             iterations += 1
-            state = self.structure.pop()
+            state = self.structure.get()
             (valid, objective), generated = state.generate()
             if objective:
                 return state, iterations, time() - start
             if valid:
                 for st in generated:
-                    self.structure.push(st)
-        return [], iterations, time() - start
+                    self.structure.put(st)
+        return None, iterations, time() - start
 
     def solve(self):
         """
         Prints the execution time, the number of iterations and the board with the solution
         """
         state, iterations, exec_time = self.search()
+        print('here')
         board = [['X' for _ in range(self.n_queens)] for _ in range(self.n_queens)]
-        for c, l in enumerate(state.board):
-            board[l][c] = 'Q'
+        if state is not None:
+            for c, l in enumerate(state.board):
+                board[l][c] = 'Q'
         print('Search finished in {} seconds after {} iterations:'.format(exec_time, iterations))
         for b in board:
             print(b)

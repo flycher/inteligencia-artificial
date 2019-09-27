@@ -20,9 +20,9 @@ class Stack:
     def __init__(self):
         self.top = QStack()
 
-    def push(self, node):
+    def put(self, node):
         """
-        The push operation for the stack, adding to the end of the list
+        The put operation for the stack, adding to the end of the list
         :param node: The node to be added to the stack
         """
         new = QStack()
@@ -30,9 +30,9 @@ class Stack:
         new.prev = self.top
         self.top = new
 
-    def pop(self):
+    def get(self):
         """
-        The pop operation for the stack, removing the last node added
+        The get operation for the stack, removing the last node added
         :return: Returns the last node of the queue
         """
         try:

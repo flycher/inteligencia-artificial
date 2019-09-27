@@ -21,9 +21,9 @@ class Queue:
         self.tail = QNode()
         self.head.next = self.tail
 
-    def push(self, node):
+    def put(self, node):
         """
-        The push operation for the queue, adding to the end of the list
+        The put operation for the queue, adding to the end of the list
         :param node: The node to be put in the queue
         """
         if self.tail.value is None:
@@ -33,9 +33,9 @@ class Queue:
             self.tail.next = new
             self.tail = new
 
-    def pop(self):
+    def get(self):
         """
-        The pop operation for the queue, removing the first node added
+        The get operation for the queue, removing the first node added
         :return: Returns the first node of the queue
         """
         try:
