@@ -3,8 +3,8 @@ class QNode:
     A class representing a node for a queue
     """
 
-    def __init__(self):
-        self.value = None
+    def __init__(self, value=None):
+        self.value = value
         self.next = None
 
 
@@ -18,17 +18,20 @@ class Queue:
         :attrib head: The head of the queue
         """
         self.head = QNode()
+        self.tail = QNode()
+        self.head.next = self.tail
 
     def push(self, node):
         """
         The push operation for the queue, adding to the end of the list
         :param node: The node to be put in the queue
         """
-        actual = self.head
-        while actual.value is not None:
-            actual = actual.next
-        actual.value = node
-        actual.next = QNode()
+        if self.tail.value is None:
+            self.tail.value = node
+        else:
+            new = QNode(node)
+            self.tail.next = new
+            self.tail = new
 
     def pop(self):
         """
@@ -36,7 +39,7 @@ class Queue:
         :return: Returns the first node of the queue
         """
         try:
-            node = self.head.value
+            node = self.head.next.value
             self.head = self.head.next
             return node
         except AttributeError:
@@ -47,4 +50,4 @@ class Queue:
         Checks the first element of the queue
         :return: Returns the head of the queue
         """
-        return self.head.value
+        return self.head.next.value

@@ -3,12 +3,12 @@ class QStack:
     A class representing the node for a stack
     """
 
-    def __init__(self):
+    def __init__(self, value=None):
         """
         :attrib value: The value associated with the node
         :attib prev: The previous node it points to
         """
-        self.value = None
+        self.value = value
         self.prev = None
 
 
@@ -18,7 +18,7 @@ class Stack:
     """
 
     def __init__(self):
-        self.head = QStack()
+        self.top = QStack()
 
     def push(self, node):
         """
@@ -27,8 +27,8 @@ class Stack:
         """
         new = QStack()
         new.value = node
-        new.prev = self.head
-        self.head = new
+        new.prev = self.top
+        self.top = new
 
     def pop(self):
         """
@@ -36,8 +36,8 @@ class Stack:
         :return: Returns the last node of the queue
         """
         try:
-            node = self.head.value
-            self.head = self.head.prev
+            node = self.top.value
+            self.top = self.top.prev
             return node
         except AttributeError:
             return None
@@ -47,4 +47,4 @@ class Stack:
         Checks the first element of the stack
         :return: Returns the head of the stack
         """
-        return self.head.value
+        return self.top.value
