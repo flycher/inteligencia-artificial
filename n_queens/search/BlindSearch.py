@@ -41,7 +41,7 @@ class BlindSearch:
         Prints the execution time, the number of iterations and the board with the solution
         """
         state, iterations, exec_time = self.search()
-        print('here')
+        print('Final state:')
         board = [['X' for _ in range(self.n_queens)] for _ in range(self.n_queens)]
         if state is not None:
             for c, l in enumerate(state.board):

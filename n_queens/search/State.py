@@ -37,6 +37,12 @@ class State:
         Tester of state for the state class
         :return: Returns if the state is valid, and if it is an objective
         """
+        board = [['X' for _ in range(self.n_queens)] for _ in range(self.n_queens)]
+        for c, l in enumerate(self.board):
+            board[l][c] = 'Q'
+        for b in board:
+            print(b)
+        print("\n")
         if self.column != -1:
             for c, q in enumerate(self.board[:self.column]):
                 if q == self.board[self.column]:
