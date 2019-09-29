@@ -23,7 +23,7 @@ class Queue:
 
     def put(self, node):
         """
-        The put operation for the queue, adding to the end of the list
+        The put operation for the queue, adding to the end of the linked list
         :param node: The node to be put in the queue
         """
         if self.tail.value is None:

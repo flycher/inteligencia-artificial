@@ -22,7 +22,7 @@ class Stack:
 
     def put(self, node):
         """
-        The put operation for the stack, adding to the end of the list
+        The put operation for the stack, adding to the end of the linked list
         :param node: The node to be added to the stack
         """
         new = QStack()
