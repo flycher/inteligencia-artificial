@@ -39,15 +39,24 @@ class State:
             for i in range(self.n_queens):
                 generated.append(State(self.n_queens, self.board,
                                        self.column + 1, i))
-        # Após gerar os estados, testamos o estado que esta sendo visitado
-        return self.test(verbose), generated
+        print(self.board, end = " >> ")
 
-    def test(self, verbose):
+            
+        # Após gerar os estados, testamos o estado que esta sendo visitado
+        return self.test(verbose,generated), generated
+
+    def test(self, verbose, generated):
         """
         Tester of state for the state class
         :return: Returns if the state is valid, and if it is an objective
         """
-        print(self.board)
+        if not (self.column + 1 == self.n_queens):        
+            for i in range(self.n_queens):
+                print(generated[i].board, end = " ")
+            print("\n")
+        #for i in list(range(0,generated.size())):
+
+        #print(generated.board)
         # Se posicionamos alguma rainha no tabuleiro
         if self.column != -1:
             # Para cada rainha posicionada, testamos a compatibilidade com a ultima
@@ -66,4 +75,3 @@ class State:
                 return True, True
         # Caso ainda tivermos espaço para colocar rainhas, continuaremos a busca
         return True, False
-
