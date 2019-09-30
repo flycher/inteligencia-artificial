@@ -1,3 +1,5 @@
+states = []
+
 class State:
     """
     A class used to represent a state for the n_queens problem
@@ -11,6 +13,7 @@ class State:
         :param column: Column in which the queen will be positioned
         :param line: Line in which the queen will be positioned
         """
+        
         if board is None:
             board = []
         # Determina a quantidade de rainhas do problema
@@ -39,24 +42,22 @@ class State:
             for i in range(self.n_queens):
                 generated.append(State(self.n_queens, self.board,
                                        self.column + 1, i))
-        print(self.board, end = " >> ")
 
-            
         # Após gerar os estados, testamos o estado que esta sendo visitado
-        return self.test(verbose,generated), generated
+        return self.test(verbose, generated), generated
 
     def test(self, verbose, generated):
         """
         Tester of state for the state class
         :return: Returns if the state is valid, and if it is an objective
         """
+        states.append(self.board)
+        print(states, end = " >> ")
         if not (self.column + 1 == self.n_queens):        
             for i in range(self.n_queens):
                 print(generated[i].board, end = " ")
             print("\n")
-        #for i in list(range(0,generated.size())):
-
-        #print(generated.board)
+            
         # Se posicionamos alguma rainha no tabuleiro
         if self.column != -1:
             # Para cada rainha posicionada, testamos a compatibilidade com a ultima
