@@ -1,17 +1,16 @@
-states = []
-
 class State:
     """
     A class used to represent a state for the n_queens problem
     """
 
-    def __init__(self, n_queens=8, board=None, column=-1, line=-1):
+    def __init__(self, n_queens=8, board=None, column=-1, line=-1, parent=None):
         """
         Constructor for the State class
         :param n_queens: Number of queens for the n_queens problem
         :param board: State of the parents board
         :param column: Column in which the queen will be positioned
         :param line: Line in which the queen will be positioned
+        :param parent: Parent node of the state, used only for showing the path to the state
         """
         
         if board is None:
@@ -26,6 +25,7 @@ class State:
         # Indica em que linha e coluna será posicionada a próxima rainha
         self.column = column
         self.board[column] = line
+        self.parent = parent
 
     def generate(self, verbose):
         """
@@ -41,7 +41,7 @@ class State:
             # A ordem segue de cima para baixo
             for i in range(self.n_queens):
                 generated.append(State(self.n_queens, self.board,
-                                       self.column + 1, i))
+                                       self.column + 1, i, self))
 
         # Após gerar os estados, testamos o estado que esta sendo visitado
         return self.test(verbose, generated), generated
@@ -50,14 +50,7 @@ class State:
         """
         Tester of state for the state class
         :return: Returns if the state is valid, and if it is an objective
-        """
-        states.append(self.board)
-        print(states, end = " >> ")
-        if not (self.column + 1 == self.n_queens):        
-            for i in range(self.n_queens):
-                print(generated[i].board, end = " ")
-            print("\n")
-            
+        """    
         # Se posicionamos alguma rainha no tabuleiro
         if self.column != -1:
             # Para cada rainha posicionada, testamos a compatibilidade com a ultima
@@ -76,3 +69,12 @@ class State:
                 return True, True
         # Caso ainda tivermos espaço para colocar rainhas, continuaremos a busca
         return True, False
+
+    def print_path(self):
+        parents = []
+        n = self
+        while n.parent != None:
+            parents.append(str(n.board))
+            n = n.parent
+        parents.reverse()
+        return '->'.join(parents)

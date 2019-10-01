@@ -1,7 +1,6 @@
 from search.State import State
 from time import time
 
-
 class BlindSearch:
     """
     A class representing an implementation for a
@@ -22,16 +21,25 @@ class BlindSearch:
             the number of iterations and the execution time
         """
         start = time()
-        state = State(n_queens=self.n_queens)
+        state = State(n_queens=self.n_queens, parent=State())
         # Coloca o estado inicial, com nenhuma rainha no tabuleiro, e inicia a busca
         self.structure.put(state)
         iterations = 0
         # Removemos de nossa estrutura enquanto existe algo nela
-        while self.structure.peek() is not None:
+        while not self.structure.empty():
             iterations += 1
             state = self.structure.get()
             # Aqui geramos e testamos estado removido da estrutura
             (valid, objective), generated = state.generate(verbose)
+            # Mostra o caminho ate o estado, e os estados que este gera
+            if verbose == 2:
+                path = state.print_path()
+                gen =  [g.board for g in generated]
+                print(path, '>>', gen)
+            elif verbose == 1 and objective:
+                path = state.print_path()
+                gen =  [g.board for g in generated]
+                print(path, '>>', gen)
             # Se o estado for objetivo, encerramos a busca
             if objective:
                 return state, iterations, time() - start

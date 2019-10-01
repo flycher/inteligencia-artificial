@@ -14,12 +14,10 @@ class Queue:
     """
 
     def __init__(self):
-        """
-        :attrib head: The head of the queue
-        """
         self.head = QNode()
         self.tail = QNode()
         self.head.next = self.tail
+        self.length = 0
 
     def put(self, node):
         """
@@ -32,6 +30,7 @@ class Queue:
             new = QNode(node)
             self.tail.next = new
             self.tail = new
+        self.length += 1
 
     def get(self):
         """
@@ -41,13 +40,14 @@ class Queue:
         try:
             node = self.head.next.value
             self.head = self.head.next
+            self.length -= 1
             return node
         except AttributeError:
             return None
 
-    def peek(self):
+    def empty(self):
         """
         Checks the first element of the queue
         :return: Returns the head of the queue
         """
-        return self.head.next.value
+        return self.length == 0

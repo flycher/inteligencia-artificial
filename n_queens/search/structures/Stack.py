@@ -19,6 +19,7 @@ class Stack:
 
     def __init__(self):
         self.top = QStack()
+        self.length = 0
 
     def put(self, node):
         """
@@ -29,6 +30,7 @@ class Stack:
         new.value = node
         new.prev = self.top
         self.top = new
+        self.length += 1
 
     def get(self):
         """
@@ -38,13 +40,14 @@ class Stack:
         try:
             node = self.top.value
             self.top = self.top.prev
+            self.length -= 1
             return node
         except AttributeError:
             return None
 
-    def peek(self):
+    def empty(self):
         """
         Checks the first element of the stack
         :return: Returns the head of the stack
         """
-        return self.top.value
+        return self.length == 0
