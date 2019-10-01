@@ -27,7 +27,7 @@ class State:
         self.board[column] = line
         self.parent = parent
 
-    def generate(self, verbose):
+    def generate(self):
         """
         Generator of states for the state class
         :return: Returns the result of the Tester, and the generated states
@@ -44,9 +44,9 @@ class State:
                                        self.column + 1, i, self))
 
         # Após gerar os estados, testamos o estado que esta sendo visitado
-        return self.test(verbose, generated), generated
+        return self.test(generated), generated
 
-    def test(self, verbose, generated):
+    def test(self, generated):
         """
         Tester of state for the state class
         :return: Returns if the state is valid, and if it is an objective
@@ -71,6 +71,10 @@ class State:
         return True, False
 
     def print_path(self):
+        """
+        A function to print the path to the states
+        :return: Path to the state
+        """
         parents = []
         n = self
         while n.parent != None:

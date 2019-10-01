@@ -30,7 +30,7 @@ class BlindSearch:
             iterations += 1
             state = self.structure.get()
             # Aqui geramos e testamos estado removido da estrutura
-            (valid, objective), generated = state.generate(verbose)
+            (valid, objective), generated = state.generate()
             # Mostra o caminho ate o estado, e os estados que este gera
             if verbose == 2:
                 path = state.print_path()
