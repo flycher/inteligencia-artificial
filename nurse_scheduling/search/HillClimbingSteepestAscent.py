@@ -2,7 +2,7 @@ from search.SchedulingProblemSearch import SchedulingProblemSearch
 from search.State import State
 
 
-class HillClimbingAclive(SchedulingProblemSearch):
+class HillClimbingSteepestAscent(SchedulingProblemSearch):
     """
     A class for executing the Hill Climbing with Steepest-Ascent for the scheduling problem
     """
