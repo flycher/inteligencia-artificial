@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser(description='This program solves the Nurse sche
 parser.add_argument('--algo', type=str, help='Informed search algorithm to use(HC, HCA, BF)', default='HC')
 parser.add_argument('--nn', type=int, help='Number of nurses', default=10)
 parser.add_argument('--np', type=int, help='Number of periods', default=3)
-parser.add_argument('--sc', type=bool, help='Schedule to use', default=True)
+parser.add_argument('--sc', type=int, help='Schedule to be used', default=0)
 # parser.add_argument('--path', type=int, help='Level of verbose for path printing('
 #                                              '2 [Print path of all nodes],'
 #                                              '1 [Print path only of objective state],'
@@ -28,20 +28,37 @@ else:
     search = None
 
 
-def get_schedule(n_nurses):
-    if args.sc:
-        schedule = np.zeros(21 * n_nurses, dtype=int)
-        allocated = np.random.choice(21 * n_nurses, 5 * n_nurses)
-        schedule[allocated] = 1
-        schedule = schedule.astype(str)
-        schedule = ''.join(schedule)
-    else:
-        schedule = '0' * 210
+def get_random_schedule():
+    schedule = np.zeros(7 * args.np * args.nn, dtype=int)
+    allocated = np.random.choice(7 * args.np * args.nn, 7 * args.np * args.nn)
+    schedule[allocated] = 1
+    schedule = schedule.astype(str)
+    schedule = ''.join(schedule)
     return schedule
 
+def get_optimal_schedule():
+    schedule = np.zeros(7 * args.np * args.nn, dtype=int)
+    allocated = np.random.choice(7 * args.np * args.nn, 5 * args.nn)
+    schedule[allocated] = 1
+    schedule = schedule.astype(str)
+    schedule = ''.join(schedule)
+    return schedule
+
+def get_init_schedule():
+    return '0' * (7 * args.np * args.nn)
+
+
+if args.sc == 1:
+    schedule = get_init_schedule()
+elif args.sc == 2:
+    schedule = get_optimal_schedule()
+elif args.sc == 3:
+    schedule = get_random_schedule()
+else:
+    schedule = input('Type the initial schedule: ')
 
 try:
-    search.search(get_schedule(args.nn))
+    search.search(schedule)
 except AttributeError:
     print('Unknown algorithm. Please use HC, HCA or BF')
 
