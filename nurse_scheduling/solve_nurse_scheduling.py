@@ -4,12 +4,19 @@ import numpy as np
 from search.HillClimbing import HillClimbing
 from search.HillClimbingSteepestAscent import HillClimbingSteepestAscent
 from search.BestFirst import BestFirst
+from search.State import State
 
 parser = argparse.ArgumentParser(description='This program solves the Nurse scheduling problem using informed search.')
 parser.add_argument('--algo', type=str, help='Informed search algorithm to use(HC, HCA, BF)', default='HC')
 parser.add_argument('--nn', type=int, help='Number of nurses', default=10)
 parser.add_argument('--np', type=int, help='Number of periods', default=3)
-parser.add_argument('--sc', type=int, help='Schedule to be used', default=1)
+parser.add_argument('--sc', type=int, help='Schedule to be used(0: Reads user input,'
+                                           '                    1: Starts without any nurses'
+                                           '                    2: Starts with optimal numer of nurses,'
+                                           '                    3: Starts with any number of nurses)', default=1)
+parser.add_argument('--it', type=int, help='Number of iterations of the search', default=1)
+parser.add_argument('--file', type=str, help='File with schedules. If argument is used, '
+                                             'all others are ignored', default=None)
 
 args = parser.parse_args()
 
@@ -25,6 +32,7 @@ else:
 
 def get_random_schedule(n_periods_occupied):
     schedule_ = np.zeros(7 * args.np * args.nn, dtype=int)
+    print(7 * n_periods_occupied)
     allocated = np.random.choice(7 * args.np * args.nn, 7 * n_periods_occupied)
     schedule_[allocated] = 1
     schedule_ = schedule_.astype(str)
@@ -36,17 +44,40 @@ def get_init_schedule():
     return '0' * (7 * args.np * args.nn)
 
 
-if args.sc == 1:
-    schedule = get_init_schedule()
-elif args.sc == 2:
-    schedule = get_random_schedule(5 * args.np)
-elif args.sc == 3:
-    schedule = get_random_schedule(7 * args.np * args.nn)
-else:
-    schedule = input('Type the initial schedule: ')
+def get_schedule():
+    schedule = ''
+    if args.sc == 1:
+        schedule = get_init_schedule()
+    elif args.sc == 2:
+        # TODO numero otimo de de enfermeiros dinamico
+        schedule = get_random_schedule(50)
+    elif args.sc == 3:
+        schedule = get_random_schedule(np.random.randint(args.np * args.nn))
+    return schedule
 
 
 try:
-    search.search(schedule)
+    best_state = State(args.nn, args.np, get_init_schedule())
+    if args.sc == 0:
+        search.search(input('Type in the schedule > '))
+    elif args.file is not None:
+        i = 0
+        with open(args.file, 'r') as f:
+            print('#' * 20, 'Iteration {}'.format(i + 1), '#' * 20)
+            state = search.search(f.readline())
+            if state < best_state:
+                best_state = state
+        print()
+        print('The best state found was:')
+        print(best_state )
+    else:
+        for i in range(args.it):
+            print('#' * 20, 'Iteration {}'.format(i + 1), '#' * 20)
+            state = search.search(get_schedule())
+            if state < best_state:
+                best_state = state
+        print()
+        print('The best state found was:')
+        print(best_state)
 except AttributeError:
     print('Unknown algorithm. Please use HC, HCA or BF')
