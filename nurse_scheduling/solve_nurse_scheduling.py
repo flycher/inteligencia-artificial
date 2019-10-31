@@ -61,18 +61,23 @@ try:
     if args.sc == 0:
         search.search(input('Type in the schedule > '))
     elif args.file is not None:
-        i = 0
+        i = 1
         with open(args.file, 'r') as f:
-            print('#' * 20, 'Iteration {}'.format(i + 1), '#' * 20)
-            state = search.search(f.readline())
-            if state < best_state:
-                best_state = state
+            schedule = f.readline()
+            while schedule:
+                schedule = schedule.strip()
+                print('#' * 20, 'Iteration {}'.format(i), '#' * 20)
+                state = search.search(schedule)
+                if state < best_state:
+                    best_state = state
+                schedule = f.readline()
+                i += 1
         print()
         print('The best state found was:')
         print(best_state )
     else:
-        for i in range(args.it):
-            print('#' * 20, 'Iteration {}'.format(i + 1), '#' * 20)
+        for i in range(1, args.it + 1):
+            print('#' * 20, 'Iteration {}'.format(i), '#' * 20)
             state = search.search(get_schedule())
             if state < best_state:
                 best_state = state
