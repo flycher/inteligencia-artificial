@@ -17,17 +17,19 @@ class State:
     Class representing the state of the allocating problem
     """
 
-    def __init__(self, n_nurses=10, n_periods=21, scheduling=''):
+    def __init__(self, n_nurses=10, n_periods=21, scheduling='', restriction_weights=None):
         """
         :param n_nurses: number of nurses to be allocated
         :param n_periods: number of preriods to be filled by nurses
         :param scheduling: the current state of the scheduling
         :attr restriction_weights: the weight for each restriction
         """
+        if restriction_weights is None:
+            restriction_weights = [1, 1, 1, 1]
         self.n_nurses = n_nurses
         self.n_periods = n_periods
         self.scheduling = scheduling
-        self.restriction_weights = [1000, 100, 10, 1]
+        self.restriction_weights = restriction_weights
 
     def generate(self):
         """

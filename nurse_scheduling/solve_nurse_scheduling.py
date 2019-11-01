@@ -7,7 +7,9 @@ from search.BestFirst import BestFirst
 from search.State import State
 
 parser = argparse.ArgumentParser(description='This program solves the Nurse scheduling problem using informed search.')
-parser.add_argument('--algo', type=str, help='Informed search algorithm to use(HC, HCA, BF)', default='HC')
+parser.add_argument('--algo', type=str, help='Informed search algorithm to use(HC: Hill Climbing,'
+                                             '                                 HCA: Hill Climbing Steepest Aclive,'
+                                             '                                 BF: Best First)', default='HC')
 parser.add_argument('--nn', type=int, help='Number of nurses', default=10)
 parser.add_argument('--np', type=int, help='Number of periods', default=3)
 parser.add_argument('--sc', type=int, help='Schedule to be used(0: Reads user input,'
@@ -15,8 +17,7 @@ parser.add_argument('--sc', type=int, help='Schedule to be used(0: Reads user in
                                            '                    2: Starts with optimal numer of nurses,'
                                            '                    3: Starts with any number of nurses)', default=1)
 parser.add_argument('--it', type=int, help='Number of iterations of the search', default=1)
-parser.add_argument('--file', type=str, help='File with schedules. If argument is used, '
-                                             'all others are ignored', default=None)
+parser.add_argument('--file', type=str, help='File with schedules.', default=None)
 
 args = parser.parse_args()
 
@@ -63,6 +64,11 @@ try:
     elif args.file is not None:
         i = 1
         with open(args.file, 'r') as f:
+            print('#' * 20, 'Iteration {}'.format(i), '#' * 20)
+            schedule = f.readline()
+            schedule = schedule.strip()
+            best_state = search.search(schedule)
+            i += 1
             schedule = f.readline()
             while schedule:
                 schedule = schedule.strip()
@@ -74,9 +80,11 @@ try:
                 i += 1
         print()
         print('The best state found was:')
-        print(best_state )
+        print(best_state)
     else:
-        for i in range(1, args.it + 1):
+        print('#' * 20, 'Iteration {}'.format(1), '#' * 20)
+        best_state = search.search(get_schedule())
+        for i in range(2, args.it + 1):
             print('#' * 20, 'Iteration {}'.format(i), '#' * 20)
             state = search.search(get_schedule())
             if state < best_state:

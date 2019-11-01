@@ -6,8 +6,10 @@ class HillClimbingSteepestAscent(SchedulingProblemSearch):
     """
     A class for executing the Hill Climbing with Steepest-Ascent for the scheduling problem
     """
-    def __init__(self, n_nurses=10, n_periods=3):
-        super().__init__(n_nurses, n_periods)
+    def __init__(self, n_nurses=10, n_periods=3, restriction_weights=None):
+        if restriction_weights is None:
+            restriction_weights = [1, 1, 1, 1]
+        super().__init__(n_nurses, n_periods, restriction_weights)
 
     def search(self, scheduling):
         state = State(self.n_nurses, self.n_periods, scheduling)
