@@ -1,12 +1,13 @@
-O código foi desenvolvido utilizando Python 3, e nenhuma biblioteca utilizada, pois a fila e a pilha foram implementadas
-Assim apenas o interpretador de python 3 é sufuciente para executar
-Para executar a busca, basta executar o comando 'python3 solve_n_queens.py' com o terminal na pasta 'n_queens'
-O script aceita argumentos, que podem ser acessados utilizando 'python3 solve_n_queens.py -h'
+O código foi desenvolvido utilizando Python 3, foi utilizada a biblioteca heapq para a implemetação do heap.
+O interpretador de python 3 é sufuciente para executar
+Para executar a busca, basta executar o comando 'python3 solve_nurse_scheduling.py' com o terminal na pasta 'nurse_scheduling'
+O script aceita argumentos, que podem ser acessados utilizando 'python3 solve_nurse_scheduling.py -h'
 Os possíveis argumentos são os seguintes:
-    --algo  Algoritimo de busca a ser utilizado (BFS ou DFS)
-    --nq    Número de rainhas a ser posicionadas no tabuleito
-    --path  O quão detalhado deseja que a busca seja imprimida (
-                [0, imprimir apenas o nó objetivo],
-                [1, imprimir o caminho até o nó objetivo],
-                [2, imprimir os caminho para todos os nós visitados]
-            )
+            --algo Algoritimo a ser utilizado. HC: Hill Climbing, HCA: Hill Climbing Steepest Aclive, BF: Best First
+            --nn Número de enfermeiros
+            --np Número de periodos de trabalho
+            --sc Tipo de alocação a ser utilizada. 0: Lê alocação do usuário, 1: Começa sem nenhum enfermeiro alocado
+                                            2: Começa com o número ótimo de enfermeiros alocados
+                                            3: Comaça com uma quantidade aleatória de enfermeiros alocados
+            --it Quantidade de testes a serem feitos
+            --file Caminho para o arquivo contento os testes
