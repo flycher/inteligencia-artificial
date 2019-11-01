@@ -16,20 +16,21 @@ class BestFirst(SchedulingProblemSearch):
         self.heap = []
 
     def search(self, scheduling):
-        state = State(self.n_nurses, self.n_periods, scheduling)
-        heapq.heappush(self.heap, state)
-        while True:
+        best_state = State(self.n_nurses, self.n_periods, scheduling)
+        heapq.heappush(self.heap, best_state)
+        iterations = 1000
+        while self.heap and iterations:
+            state = heapq.heappop(self.heap)
+            # Guarda o melhor estado encontrado ate o momento
+            if state < best_state:
+                best_state = state
             print(state)
             # Removemos o melhor estado do heap e geramos seus estados
-            state = heapq.heappop(self.heap)
             generated = state.generate()
             for st in generated:
                 # Para cada estado gerado adicionamos este no heap
-                if st.test() < state.test():
+                if st < state:
+                    # best_state = st
                     heapq.heappush(self.heap, st)
-            # Verificamos se este estado gerado melhor tem custo menor que seu gerador
-            improved = (self.heap != []) and self.heap[0].test() < state.test()
-            # improved = self.heap[0].test() < state.test()
-            if not improved:
-                break
-        return state
+            iterations -= 1
+        return best_state
