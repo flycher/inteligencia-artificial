@@ -1,0 +1,20 @@
+O código foi desenvolvido utilizando Python 3, foi utilizada a biblioteca numpy.
+A instalação desta biblioteca é possível com o comando 'pip install numpy'
+
+Para executar a busca, basta executar o comando 'python3 solve_nurse_scheduling.py' com o terminal na pasta 'nurse_scheduling'
+O script aceita argumentos, que podem ser acessados utilizando 'python3 solve_nurse_scheduling.py -h'
+Os possíveis argumentos são os seguintes:
+            --algo Algoritimo a ser utilizado. SA: Simulated Annealing, GA: Genetic Algorithm
+            --nn Número de enfermeiros
+            --np Número de periodos de trabalho
+            --sc Tipo de alocação inicial a ser utilizada no algoritmo SA
+                                            0: Lê alocação do usuário, 1: Começa sem nenhum enfermeiro alocado
+                                            2: Começa com o número ótimo de enfermeiros alocados
+                                            3: Comaça com uma quantidade aleatória de enfermeiros alocados
+            --temp Temperatura inicial utilizada no algoritmo SA
+            --alpha Taxa de modificação de temperatura no algoritimo SA
+            --it Quantidade de iterações máximas no algoritmo SA
+            --pop Tamanho da população no algoritmo GA
+            --gen Número de gerações no algoritmo GA
+            --mut Taxa de mutação no algoritmo GA
+            --elite Taxa de elitismo no algoritmo GA
