@@ -9,7 +9,7 @@ class State:
     def __init__(self, n_nurses=10, n_periods=21, scheduling='', restriction_weights=None):
         """
         :param n_nurses: number of nurses to be allocated
-        :param n_periods: number of preriods to be filled by nurses
+        :param n_periods: number of periods to be filled by nurses
         :param scheduling: the current state of the scheduling
         :attr restriction_weights: the weight for each restriction
         """
@@ -26,7 +26,7 @@ class State:
         :param index: index to swap bit
         :return: string of bits with swapped bit
         """
-        if self.scheduling == '0':
+        if self.scheduling[index] == '0':
             new_bit_string = self.scheduling[:index] + '1' + self.scheduling[index + 1:]
         else:
             new_bit_string = self.scheduling[:index] + '0' + self.scheduling[index + 1:]
