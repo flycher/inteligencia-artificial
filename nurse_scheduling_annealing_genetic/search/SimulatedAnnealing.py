@@ -22,12 +22,11 @@ class SimulatedAnnealing(SchedulingProblemSearch):
             new_state = state.generate_random()
             # calcula a diferenca de energia entre os estados
             delta_e = new_state.test() - state.test()
-            p = self.probability(delta_e)
+            probability = self.probability(delta_e)
             r = np.random.rand()
             # define se o estado será mudado
-            chosen = p > r
-            print(p, r)
-            print('Temperature:', self.temperature, 'Chosen:', chosen)
+            chosen = probability > r
+            print('Temperature:', self.temperature, 'Probability:', probability, 'Chosen:', chosen)
             print(new_state)
             if chosen:
                 state = new_state
