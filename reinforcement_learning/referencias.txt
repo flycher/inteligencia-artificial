@@ -1,0 +1,3 @@
+q-learning : https://www.geeksforgeeks.org/ml-reinforcement-learning-algorithm-python-implementation-using-q-learning/
+genetic : https://www.geeksforgeeks.org/genetic-algorithm-for-reinforcement-learning-python-implementation/
+base dos slides : https://towardsdatascience.com/reinforcement-learning-101-e24b50e1d292 
