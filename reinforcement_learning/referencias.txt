@@ -1,3 +1,9 @@
 q-learning : https://www.geeksforgeeks.org/ml-reinforcement-learning-algorithm-python-implementation-using-q-learning/
 genetic : https://www.geeksforgeeks.org/genetic-algorithm-for-reinforcement-learning-python-implementation/
-base dos slides : https://towardsdatascience.com/reinforcement-learning-101-e24b50e1d292 
+base dos slides : 
+    https://towardsdatascience.com/reinforcement-learning-101-e24b50e1d292 
+    https://www.geeksforgeeks.org/what-is-reinforcement-learning/
+    https://www.guru99.com/reinforcement-learning-tutorial.html
+    http://firsttimeprogrammer.blogspot.com/2016/09/getting-ai-smarter-with-q-learning.html
+
+rl with keras: https://www.analyticsvidhya.com/blog/2017/01/introduction-to-reinforcement-learning-implementation/
